@@ -354,7 +354,7 @@ function OrderPage() {
                   setInvoiceModalOpen(true);
                 }}
               >
-                Thanh toán
+                {order.status === 'PENDING' ? 'Xuất hóa đơn' : 'Thanh toán'}
               </Button>
             )}
             <Button
@@ -468,7 +468,7 @@ function OrderPage() {
                 setOrderDetails(null);
               }}
             >
-              Thanh toán
+              {selectedOrder?.status === 'PENDING' ? 'Xuất hóa đơn' : 'Thanh toán'}
             </Button>
           ),
           <Button key="close" onClick={() => {

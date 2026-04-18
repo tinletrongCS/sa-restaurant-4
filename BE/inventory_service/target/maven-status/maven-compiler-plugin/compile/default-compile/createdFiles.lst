@@ -1,7 +1,0 @@
-com/irms/inventory_service/controller/ReserveTableController.class
-com/irms/inventory_service/dto/ReserveTableResponseDTO.class
-com/irms/inventory_service/service/ReserveTableServiceImpl.class
-com/irms/inventory_service/dto/ReserveTableRequestDTO.class
-com/irms/inventory_service/entity/ReservationEntity.class
-com/irms/inventory_service/repository/ReserveTableRepository.class
-com/irms/inventory_service/service/ReserveTableService.class
