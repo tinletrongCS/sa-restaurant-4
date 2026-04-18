@@ -130,6 +130,41 @@ function OrderPage() {
     return () => clearInterval(interval)
   }, [])
 
+  // --- Tự động giải phóng bàn khi không còn đơn hàng đang hoạt động ---
+  useEffect(() => {
+    const autoReleaseTables = async () => {
+      if (allTablesLoading || allTables.length === 0) return
+
+      const activeTableNames = new Set(
+        orders
+          .filter(o => o.status === 'PENDING' || o.status === 'AWAITING_PAYMENT')
+          .map(o => o.tableId)
+      )
+
+      const tablesToRelease = allTables.filter(
+        t => !t.available && !activeTableNames.has(t.tableName)
+      )
+
+      if (tablesToRelease.length > 0) {
+        let updated = false
+        for (const t of tablesToRelease) {
+          try {
+            await tableApi.updateStatus(t.id, true)
+            updated = true
+          } catch (e) {
+            console.error('Lỗi tự động giải phóng bàn:', e)
+          }
+        }
+        
+        if (updated) {
+          fetchAllTables()
+        }
+      }
+    }
+
+    autoReleaseTables()
+  }, [orders, allTablesLoading])
+
   const handleCreateOrderSuccess = () => {
     setModalOpen(false)
     fetchOrders()
@@ -509,6 +544,14 @@ function OrderPage() {
                 {calculateFinalPrice().toLocaleString('vi-VN')} đ
               </Title>
             </div>
+            {selectedOrder.status === 'COMPLETED' && orderDetails?.finalPrice && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f6ffed', padding: '12px 16px', borderRadius: 2, border: '1px solid #b7eb8f', marginTop: 12 }}>
+                <Title level={4} style={{ margin: 0, color: '#52c41a' }}>Đã thanh toán:</Title>
+                <Title level={3} style={{ margin: 0, color: '#52c41a' }}>
+                  {orderDetails.finalPrice.toLocaleString('vi-VN')} đ
+                </Title>
+              </div>
+            )}
           </div>
         )}
       </Modal>

@@ -32,7 +32,7 @@ const { Title, Text } = Typography;
 const STATUS_CONFIG = {
   PENDING: { color: 'orange', label: 'Đang chờ', icon: <ClockCircleOutlined style={{ marginRight: 8, color: '#faad14' }} /> },
   AWAITING_PAYMENT: { color: 'gold', label: 'Chờ thanh toán', icon: <ClockCircleOutlined style={{ marginRight: 8, color: '#d48806' }} /> },
-  COMPLETED: { color: 'green', label: 'Hoàn tất', icon: <CheckCircleOutlined style={{ marginRight: 8, color: '#52c41a' }} /> },
+  COMPLETED: { color: 'green', label: 'Đã thanh toán', icon: <CheckCircleOutlined style={{ marginRight: 8, color: '#52c41a' }} /> },
   CANCELLED: { color: 'red', label: 'Đã hủy', icon: <CloseCircleOutlined style={{ marginRight: 8, color: '#ff4d4f' }} /> },
 };
 
@@ -289,6 +289,25 @@ const MyOrdersPage = () => {
                 {calculateTotal(selectedOrder).toLocaleString('vi-VN')} đ
               </Text>
             </div>
+            {selectedOrder.status === 'COMPLETED' && selectedOrder.finalPrice && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  backgroundColor: '#f6ffed',
+                  padding: '12px 16px',
+                  borderRadius: 2,
+                  border: '1px solid #b7eb8f',
+                  marginTop: 12
+                }}
+              >
+                <Text strong style={{ fontSize: 16, color: '#52c41a' }}>Đã thanh toán:</Text>
+                <Text strong style={{ fontSize: 20, color: '#52c41a' }}>
+                  {selectedOrder.finalPrice.toLocaleString('vi-VN')} đ
+                </Text>
+              </div>
+            )}
           </div>
         )}
       </Modal>
