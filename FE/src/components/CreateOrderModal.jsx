@@ -573,18 +573,28 @@ const CreateOrderModal = ({ open, onCancel, onSuccess }) => {
                         >
                           <List.Item.Meta
                             title={
-                              <div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: 20 }}>
-                                <span>{item.name}</span>
-                                <Text type="success" strong>{item.price.toLocaleString('vi-VN')} đ</Text>
+                              <div style={{ display: 'flex', paddingRight: 20 }}>
+                                <div style={{ flex: 1, paddingRight: 16 }}>
+                                  <span>{item.name}</span>
+                                </div>
+                                <div style={{ width: 90, textAlign: 'right', flexShrink: 0 }}>
+                                  <Text type="success" strong>{item.price.toLocaleString('vi-VN')} đ</Text>
+                                </div>
                               </div>
                             }
                             description={
-                              <Space split={<Divider type="vertical" />}>
-                                <Text type="secondary" style={{ fontSize: 12 }}>{item.description}</Text>
-                                <Tag color={((item.quantity || 0) - qty) <= 5 ? 'volcano' : 'green'} style={{ fontSize: 11 }}>
-                                  Còn {(item.quantity || 0) - qty}
-                                </Tag>
-                              </Space>
+                              <div style={{ display: 'flex', paddingRight: 20, marginTop: 4 }}>
+                                <div style={{ flex: 1, paddingRight: 16 }}>
+                                  <Text type="secondary" style={{ fontSize: 12, display: 'block', wordBreak: 'break-word', whiteSpace: 'normal', lineHeight: 1.4 }}>
+                                    {item.description}
+                                  </Text>
+                                </div>
+                                <div style={{ width: 90, textAlign: 'right', flexShrink: 0 }}>
+                                  <Tag color={((item.quantity || 0) - qty) <= 5 ? 'volcano' : 'green'} style={{ fontSize: 11, margin: 0, width: 70, textAlign: 'center' }}>
+                                    Còn {(item.quantity || 0) - qty}
+                                  </Tag>
+                                </div>
+                              </div>
                             }
                           />
                         </List.Item>

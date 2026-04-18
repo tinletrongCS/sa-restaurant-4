@@ -429,7 +429,7 @@ function InventoryPage() {
         >
           <Title level={3} style={{ margin: 0 }}>
             <InboxOutlined style={{ marginRight: 8 }} />
-            Quản lý Kho hàng
+            Danh sách các món
           </Title>
           <Space wrap>
             <Input

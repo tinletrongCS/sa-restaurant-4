@@ -33,41 +33,43 @@ const DashboardPage = () => {
     {
       key: '1',
       icon: <DashboardOutlined />,
-      label: 'Tổng Quan',
+      label: 'Trang chủ',
     },
-    {
-      key: '5',
-      icon: <SettingOutlined />,
-      label: 'Tài Khoản của tôi',
-    },
+    
     // Only show 'My Orders' if user is NOT an admin
     ...(user?.permission !== 'admin' ? [{
       key: '6',
       icon: <FileTextOutlined />,
       label: 'Đơn Hàng Của Tôi',
     }] : []),
-    // Only show 'User Management' if user has 'admin' permission
-    ...(user?.permission === 'admin' ? [{
-      key: '2',
-      icon: <UserOutlined />,
-      label: 'Quản Lý Người Dùng',
-    }] : []),
+    
     // Only show 'Đơn Hàng' if user has 'admin' permission
     ...(user?.permission === 'admin' ? [{
       key: '3',
       icon: <ShoppingCartOutlined />,
-      label: 'Đơn Hàng',
+      label: 'Đơn đặt món',
     }] : []),
     // Only show 'Kho hàng' if user has 'admin' permission
     ...(user?.permission === 'admin' ? [{
       key: '4',
       icon: <InboxOutlined />,
-      label: 'Kho Hàng',
+      label: 'Quản lý thực đơn',
     }] : []),
+    // Only show 'User Management' if user has 'admin' permission
+    ...(user?.permission === 'admin' ? [{
+      key: '2',
+      icon: <UserOutlined />,
+      label: 'Quản lý người dùng',
+    }] : []),
+    {
+      key: '5',
+      icon: <SettingOutlined />,
+      label: 'Tài khoản của tôi',
+    },
     ...(user?.permission === 'admin' ? [{
       key: '7',
       icon: <FileTextOutlined />,
-      label: 'Quản Lý Giao Dịch',
+      label: 'Lịch sử giao dịch',
     }] : []),
   ];
 

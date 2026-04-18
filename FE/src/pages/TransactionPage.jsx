@@ -116,7 +116,7 @@ const TransactionPage = () => {
 
     return (
         <div style={{ padding: 24 }}>
-            <Title level={2}>Lịch sử giao dịch (SePAY)</Title>
+            <Title level={2}>Lịch sử giao dịch</Title>
             
             {loading ? (
                 <div style={{ textAlign: 'center', padding: '50px 0' }}>
