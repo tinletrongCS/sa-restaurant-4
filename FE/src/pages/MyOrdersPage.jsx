@@ -30,7 +30,7 @@ import InvoiceModal from '../components/InvoiceModal';
 const { Title, Text } = Typography;
 
 const STATUS_CONFIG = {
-  PENDING: { color: 'orange', label: 'Đang chờ', icon: <ClockCircleOutlined style={{ marginRight: 8, color: '#faad14' }} /> },
+  PENDING: { color: 'orange', label: 'Đang phục vụ', icon: <ClockCircleOutlined style={{ marginRight: 8, color: '#faad14' }} /> },
   AWAITING_PAYMENT: { color: 'gold', label: 'Chờ thanh toán', icon: <ClockCircleOutlined style={{ marginRight: 8, color: '#d48806' }} /> },
   COMPLETED: { color: 'green', label: 'Đã thanh toán', icon: <CheckCircleOutlined style={{ marginRight: 8, color: '#52c41a' }} /> },
   CANCELLED: { color: 'red', label: 'Đã hủy', icon: <CloseCircleOutlined style={{ marginRight: 8, color: '#ff4d4f' }} /> },
@@ -159,7 +159,7 @@ const MyOrdersPage = () => {
                 setInvoiceModalOpen(true);
               }}
             >
-              Thanh toán
+              {record.status === 'PENDING' ? 'Xuất hóa đơn' : 'Thanh toán'}
             </Button>
           )}
           <Button
@@ -224,14 +224,14 @@ const MyOrdersPage = () => {
             <Button
               key="payment"
               type="primary"
-              style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }}
+              style={{ padding: '4px 15px', color: '#fff', backgroundColor: '#52c41a', borderColor: '#52c41a' }}
               onClick={() => {
                 setCurrentInvoiceOrder(selectedOrder.id);
                 setInvoiceModalOpen(true);
                 setDetailsModalOpen(false);
               }}
             >
-              Thanh toán
+              {selectedOrder.status === 'PENDING' ? 'Xuất hóa đơn' : 'Thanh toán'}
             </Button>
           ),
           <Button key="close" onClick={() => setDetailsModalOpen(false)}>

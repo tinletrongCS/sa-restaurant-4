@@ -14,7 +14,7 @@ public class SepayWebhookPayloadDTO {
     private String accountNumber;
     private String code;
     private String content; // Nội dung CK
-    private String transferType; // "in" or "out"
+    private String transferType; // in/out
     private Float transferAmount;
     private Float accumulated;
     private String subAccount;

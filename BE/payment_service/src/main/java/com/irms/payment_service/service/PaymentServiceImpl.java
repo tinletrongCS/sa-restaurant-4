@@ -48,6 +48,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Value("${sepay.bank.bank-name}")
     private String bankName;
 
+    // url image
     @Value("${sepay.bank.qr-base-url}")
     private String qrBaseUrl;
 
@@ -57,7 +58,6 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public InvoiceResponseDTO createInvoice(Long orderId) {
         log.info("Creating invoice for order: {}", orderId);
-        // 1. Get order from ordering-service
         String getOrderUrl = orderingServiceUrl + "/" + orderId;
         log.debug("Fetching order from: {}", getOrderUrl);
         OrderResponseDTO order = restTemplate.getForObject(getOrderUrl, OrderResponseDTO.class);
@@ -70,7 +70,6 @@ public class PaymentServiceImpl implements PaymentService {
         TaxConfigDTO currentTax = getCurrentTaxConfig();
         BigDecimal taxRate = currentTax.getTaxRate();
 
-        // 3. Calculate final price
         Float totalPrice = order.getTotalPrice() != null ? order.getTotalPrice() : 0f;
         Float taxAmount = totalPrice * taxRate.floatValue() / 100f;
         Float finalPrice = totalPrice + taxAmount;
@@ -85,6 +84,7 @@ public class PaymentServiceImpl implements PaymentService {
         log.debug("Successfully updated final price in ordering-service");
 
         // 5. Save payment record
+        // -> need refactor
         PaymentRecordEntity record = paymentRecordRepository.findByOrderId(orderId)
                 .orElse(new PaymentRecordEntity());
         record.setOrderId(orderId);
@@ -99,7 +99,6 @@ public class PaymentServiceImpl implements PaymentService {
         paymentRecordRepository.save(record);
         log.debug("Saved payment record for order: {}", orderId);
 
-        // Liên kết với Vietinbank nên là sẽ có thêm SEVQR
         String description = "SEVQR Thanh toan DH" + orderId;
         String qrUrl = UriComponentsBuilder.fromUriString(qrBaseUrl)
                 .queryParam("acc", bankAccountNumber)

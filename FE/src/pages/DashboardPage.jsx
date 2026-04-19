@@ -40,7 +40,7 @@ const DashboardPage = () => {
     ...(user?.permission !== 'admin' ? [{
       key: '6',
       icon: <FileTextOutlined />,
-      label: 'Đơn Hàng Của Tôi',
+      label: 'Đơn đặt món',
     }] : []),
     
     // Only show 'Đơn Hàng' if user has 'admin' permission

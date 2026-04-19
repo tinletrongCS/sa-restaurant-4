@@ -400,9 +400,6 @@ function OrderPage() {
             />
             {order.status === 'PENDING' && (
               <>
-                <Popconfirm title="Xác nhận hoàn tất?" onConfirm={() => handleUpdateStatus(order.id, 'COMPLETED')}>
-                  <Button size="small" type="primary" icon={<CheckOutlined />} style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }} />
-                </Popconfirm>
                 <Popconfirm title="Xác nhận hủy đơn?" onConfirm={() => handleUpdateStatus(order.id, 'CANCELLED')}>
                   <Button size="small" danger icon={<CloseOutlined />} />
                 </Popconfirm>
@@ -432,7 +429,7 @@ function OrderPage() {
               {config.icon}
               <Title level={5} style={{ margin: 0 }}>{title}</Title>
             </div>
-            <Badge count={columnOrders.length} color={config.color} />
+            <Badge count={columnOrders.length} style={{ backgroundColor: statusKey === 'COMPLETED' ? '#44702eff' : '#ff4d4f' }} />
           </div>
 
           <div style={{ flex: 1, overflowY: 'auto' }}>
